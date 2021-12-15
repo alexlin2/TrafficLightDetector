@@ -48,7 +48,7 @@ class TrafficLightDataset(Dataset):
             y['boxes'] = torch.tensor(new_boxes, dtype=torch.float)
             y['labels'] = torch.tensor(labels, dtype=torch.long)
         else:
-            y['boxes'] = torch.tensor([[10,10,11,11]], dtype=torch.float)
+            y['boxes'] = torch.empty((0,4), dtype=torch.float)
             y['labels'] = torch.tensor([0], dtype=torch.long)
             
         return x, y
@@ -75,6 +75,6 @@ def collate_fn(batch):
         
 
 if __name__ == "__main__":
-    dataset = TrafficLightDataset(img_dir, labels_dir, ['background','GreenLeft', 'RedStraightLeft', 'RedLeft', 'off', 'GreenStraight', 'GreenStraightRight',
+    dataset = TrafficLightDataset(img_dir, labels_dir, ['background', 'GreenLeft', 'RedStraightLeft', 'RedLeft', 'off', 'GreenStraight', 'GreenStraightRight',
              'GreenStraightLeft', 'RedStraight', 'GreenRight', 'Green', 'Yellow', 'RedRight', 'Red'])
-    print(dataset[1731][1])
+    print(dataset[2][1])
