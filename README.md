@@ -8,8 +8,9 @@ The following video is our Faster-RCNN object detector trained on 5000 annotated
 
 [![Everything Is AWESOME](results/thumbnail.png)](https://www.youtube.com/watch?v=4zXyJWrQRM0-Y "Everything Is AWESOME")
 
-Next is our presentation video
+Next is our presentation video (please click on the thumbnail)
 
+[![Everything Is AWESOME](https://i9.ytimg.com/vi/LFBUFx0beLU/mq3.jpg?sqp=CMy96o0G&rs=AOn4CLA8kKfEvyhikhlj2Eg1gLRpK0aTeg&retry=4)](https://youtu.be/LFBUFx0beLU-Y "Everything Is AWESOME")
 
 
 # Problem Statement
