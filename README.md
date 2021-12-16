@@ -1,11 +1,16 @@
 # Abstract 
+
 Traffic light detection has always been crucial to the safety of self-driving cars. Autonomous vehicle and smart cities must detect traffic light to function. And detecting traffic lights can be done both as a classification problem, where a neural network simply tries to detect the presence of traffic light. Or it can be much more sophisticated as a multiclass object detection problem. We have taken the latter approach and designed and trained a fully end-to-end deep neural network to detect and classify 12 different types of traffic light signals. Our network have demonstrated real-time performance on a laptop with a RTX2080, and can achieve a high F1 score on 6 GBs of test video. 
 
-# Demo Video
+# Videos
 
 The following video is our Faster-RCNN object detector trained on 5000 annotated traffic light labels. The detection was ran on a video extracted from a random youtube clip.
 
-[![Everything Is AWESOME](https://fleetimages.bobitstudios.com/upload/automotive-fleet/content/news/_migrated/m-netradyne-1.jpg)](https://www.youtube.com/watch?v=4zXyJWrQRM0-Y "Everything Is AWESOME")
+[![Everything Is AWESOME](results/thumbnail.png)](https://www.youtube.com/watch?v=4zXyJWrQRM0-Y "Everything Is AWESOME")
+
+Next is our presentation video
+
+
 
 # Problem Statement
 Solving the traffic light problem for autonomous vehicles is critical for all vehicle safety, not just autonomous vehicles. The lack of accurate traffic light detection system could pose a serious threat to safety to both drivers and pedestrians. An accurate and efficient vision-based detection system is a necessary and vital step toward bringing autonomous vehicles to the streets. Our goal is to detect a bounding box for each traffic light in the image and also there corresponding labels. We want to detect the difference between a left-turn arrowed red light and a normal green light. 
@@ -36,6 +41,7 @@ The camera images are provided as raw 12bit HDR images taken with a red-clear-cl
 # Methodology 
 
 The model of we chose for this project is the **Faster R-CNN** model we discussed heavily in class and the backbone is the **ResNet-50**. Since our goal is to detect objects location in real time, the Faster R-CNN helps us elimniate the threat of bottlenck for any advance computation and provides accurate prediction. Additionally, since we have a lot of classes as our labels, we decided to use a fairly deep feature extrator, a 50 layer convolutional network as the backbone of the model. ResNet-50 provides an excellent tool with the ability to classifiy images to more than 100 classes which fits perfectly with the task in hand. Our approach heavily relied on **transfer learning** where we used the resnet backbone that is pretrained on ImageNet. It is a popular approach in deep learning where pre-trained models are used as the starting point on computer vision and natural language processing tasks given the vast compute and time resources required to develop neural network models on these problems and from the huge jumps in skill that they provide on related problems. It offers an optimization that allows rapid progress or improved performance when modeling the second task which is what we need when processing a deep, enormous dataset like this one.
+
 # Evaluation
 
 The evaluation on our predictions, or the measure of accuracy of our prediction is difficult to define as it contains many components for a complex task as object detection. First, we defined IOU. Intersection over Union is an evaluation metridc used to measure the accuracy of an annotation on a particular task. In our case it's the precision of the box when compared against to the ground truth. When comparing the boxes in the predictions and in the ground truths, we check every combination of the boxes and seek two pieces of data, the area of intersection or overlap between the two regions and the union of the two areas. 
@@ -57,9 +63,17 @@ Which is why we offer two new measurements, **Precision and Recall**.
 <br /> ```Recall = TP / (TP + FN) ```
 <br /> Precision is the ratio of correctly drawn boxes to the total number of drawn boxes. And recall is the ratio of correctly drawn annotation to total number of ground truth annotation. These two measurements entails more characteristics about FNs and FPs seperately. 
 
+# Results
 
+Below is our training lost curve, we trained for 8 epochs, with 5093 images, and a batch size of 1. It took about 8 hours running on my laptop with a RTX2080. The loss curve is decreasing pretty consistently. We believe that if we let it train for longer, it can probably do better on our test dataset. We used Adam optimizer and a learing rate scheduler for faster convergence. 
+
+![training](results/output.png)
+
+Using a confidence threshold of 0.5, our average recall and precision were **0.5431** and **0.4292** respectively on our test dataset consisting of 8334 images. This is to be expected as our training dataset is quite small and we only trained for 8 epochs. Future improvements will include training for a longer time using a larger dataset. And we also need to add some data augmentation such as flip and scale. 
 
 # Examples Images:
+
+Below are some example prediction on our test dataset.
 
 ![example1](results/frame_000.png)
 ![example2](results/frame_001.png)
